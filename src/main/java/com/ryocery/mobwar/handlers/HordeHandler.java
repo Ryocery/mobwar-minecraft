@@ -37,7 +37,7 @@ public class HordeHandler {
     }
 
     private static void applyHordeBuffs(Mob mob, int groupSize) {
-        int duration = 120; // 6 seconds
+        int duration = 120;
 
         record BuffAmplifiers(int strength, int regeneration, int speed, int resistance) {}
 
