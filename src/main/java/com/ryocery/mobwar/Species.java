@@ -32,7 +32,7 @@ public enum Species {
     public boolean isHostileTowards(LivingEntity target) {
         Species targetSpecies = getSpecies(target);
 
-        // Filter for undefined species
+        // Filter for undefined species in the switch above (eg, animals)
         if (this == UNKNOWN) return false;
         if (targetSpecies == UNKNOWN) return false;
 
