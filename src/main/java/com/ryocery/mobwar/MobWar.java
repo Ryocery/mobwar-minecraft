@@ -4,12 +4,12 @@ import com.mojang.logging.LogUtils;
 import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
 
-@Mod(Mobwar.MODID)
-public class Mobwar {
+@Mod(MobWar.MODID)
+public class MobWar {
     public static final String MODID = "mobwar";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public Mobwar() {
+    public MobWar() {
         LOGGER.info("MobWar has loaded successfully.");
     }
 }

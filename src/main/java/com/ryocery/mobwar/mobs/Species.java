@@ -1,4 +1,4 @@
-package com.ryocery.mobwar;
+package com.ryocery.mobwar.mobs;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.*;
