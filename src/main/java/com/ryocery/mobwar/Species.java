@@ -15,15 +15,15 @@ public enum Species {
 
     public static Species getSpecies(LivingEntity entity) {
         return switch (entity) {
-            case Creeper c -> CREEPERS;
-            case AbstractSkeleton s -> SKELETAL;
-            case Zombie z -> ZOMBIES;
-            case AbstractPiglin p -> ZOMBIES;
-            case AbstractIllager i -> ILLAGERS;
-            case Spider sp -> ARTHROPODS;
-            case Silverfish sf -> ARTHROPODS;
-            case EnderMan e -> ENDER;
-            case Endermite em -> ENDER;
+            case Creeper ignored -> CREEPERS;
+            case AbstractSkeleton ignored -> SKELETAL;
+            case Zombie ignored -> ZOMBIES;
+            case AbstractPiglin ignored -> ZOMBIES;
+            case AbstractIllager ignored -> ILLAGERS;
+            case Spider ignored -> ARTHROPODS;
+            case Silverfish ignored -> ARTHROPODS;
+            case EnderMan ignored -> ENDER;
+            case Endermite ignored -> ENDER;
             default -> UNKNOWN;
         };
     }
