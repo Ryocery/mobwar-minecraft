@@ -1,16 +1,14 @@
 package com.ryocery.mobwar.handlers;
 
 import com.ryocery.mobwar.MobWar;
+import com.ryocery.mobwar.mobs.profiles.ProfileRegistry;
 import com.ryocery.mobwar.mobs.Species;
-import net.minecraft.world.entity.LivingEntity;
+import com.ryocery.mobwar.mobs.goals.PackSupportGoal;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
-import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 @EventBusSubscriber(modid = MobWar.MODID)
 public class WarHandler {
@@ -20,32 +18,25 @@ public class WarHandler {
         if (!(event.getEntity() instanceof Mob mob)) return;
         if (mob.level().isClientSide()) return;
 
-        Species mySpecies = Species.getSpecies(mob);
-        if (mySpecies == Species.UNKNOWN) return;
+        Species species = Species.getSpecies(mob);
+        if (species == Species.UNKNOWN) return;
+        mob.targetSelector.addGoal(2, new PackSupportGoal(mob, species));
+        ProfileRegistry.get(species).addCustomGoals(mob, species);
+    }
 
-        // Endermen prioritize Skeletons first
-        if (mob instanceof EnderMan enderman) {
-            enderman.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(
-                    enderman,
-                    AbstractSkeleton.class,
-                    10,
-                    true,
-                    false,
-                    null
-            ));
-        }
+    @SubscribeEvent
+    public static void onDamage(LivingIncomingDamageEvent event) {
+        if (event.getEntity().level().isClientSide()) return;
 
-        // General condition, attack anything
-        mob.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(
-            mob,
-            LivingEntity.class,
-            10,
-            true,
-            false,
-            (potentialTarget) -> {
-                if (potentialTarget instanceof Player) return false;
-                return mySpecies.isHostileTowards(potentialTarget);
+        if (event.getSource().getEntity() instanceof Mob attacker) {
+            Species attackerSpecies = Species.getSpecies(attacker);
+            Species victimSpecies = Species.getSpecies(event.getEntity());
+
+            if (attackerSpecies == victimSpecies && attackerSpecies != Species.UNKNOWN) {
+                event.setCanceled(true);
+                return;
             }
-        ));
+            ProfileRegistry.get(attackerSpecies).onAttack(event);
+        }
     }
 }

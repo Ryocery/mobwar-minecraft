@@ -15,27 +15,22 @@ public enum Species {
 
     public static Species getSpecies(LivingEntity entity) {
         return switch (entity) {
-            case Creeper            ignored -> CREEPERS;
-            case AbstractSkeleton   ignored -> SKELETAL;
-            case Zombie             ignored -> ZOMBIES;
-            case AbstractPiglin     ignored -> ZOMBIES;
-            case AbstractIllager    ignored -> ILLAGERS;
-            case Spider             ignored -> ARTHROPODS;
-            case Silverfish         ignored -> ARTHROPODS;
-            case EnderMan           ignored -> ENDER;
-            case Endermite          ignored -> ENDER;
+            case Creeper          ignored -> CREEPERS;
+            case AbstractSkeleton ignored -> SKELETAL;
+            case Zombie           ignored -> ZOMBIES;
+            case AbstractPiglin   ignored -> ZOMBIES;
+            case AbstractIllager  ignored -> ILLAGERS;
+            case Spider           ignored -> ARTHROPODS;
+            case Silverfish       ignored -> ARTHROPODS;
+            case EnderMan         ignored -> ENDER;
+            case Endermite        ignored -> ENDER;
             default -> UNKNOWN;
         };
     }
 
-
     public boolean isHostileTowards(LivingEntity target) {
         Species targetSpecies = getSpecies(target);
-
-        // Filter for undefined species in the switch above (eg, animals)
-        if (this == UNKNOWN) return false;
-        if (targetSpecies == UNKNOWN) return false;
-
+        if (this == UNKNOWN || targetSpecies == UNKNOWN) return false;
         return this != targetSpecies;
     }
 }

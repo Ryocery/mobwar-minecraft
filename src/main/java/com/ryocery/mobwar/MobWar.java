@@ -1,6 +1,9 @@
 package com.ryocery.mobwar;
 
 import com.mojang.logging.LogUtils;
+import com.ryocery.mobwar.mobs.profiles.ProfileRegistry;
+import com.ryocery.mobwar.mobs.Species;
+import com.ryocery.mobwar.mobs.profiles.species.EnderManProfile;
 import net.neoforged.fml.common.Mod;
 import org.slf4j.Logger;
 
@@ -11,5 +14,6 @@ public class MobWar {
 
     public MobWar() {
         LOGGER.info("MobWar has loaded successfully.");
+        ProfileRegistry.register(Species.ENDER, new EnderManProfile());
     }
 }
