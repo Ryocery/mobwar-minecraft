@@ -19,7 +19,8 @@ public class PackSupportGoal extends TargetGoal {
     public boolean canUse() {
         if (this.mob.getTarget() != null) return false;
 
-        List<Mob> nearbyFriends = this.mob.level().getEntitiesOfClass(Mob.class,
+        List<Mob> nearbyFriends = this.mob.level().getEntitiesOfClass(
+                Mob.class,
                 this.mob.getBoundingBox().inflate(15.0D),
                 (friend) -> Species.getSpecies(friend) == mySpecies && friend != this.mob
         );
