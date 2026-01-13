@@ -7,7 +7,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.EnderMan;
 
-public class EnderManProfile extends DefaultProfile {
+public class EnderProfile extends DefaultProfile {
     @Override
     public void addCustomGoals(Mob mob, Species species) {
         super.addCustomGoals(mob, species);
