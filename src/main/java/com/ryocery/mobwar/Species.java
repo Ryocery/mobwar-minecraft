@@ -1,10 +1,10 @@
-package com.ryocery.mobwar.handlers;
+package com.ryocery.mobwar;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 
-public enum SpeciesHandler {
+public enum Species {
     ZOMBIES,
     CREEPERS,
     SKELETAL,
@@ -13,7 +13,7 @@ public enum SpeciesHandler {
     ENDER,
     UNKNOWN;
 
-    public static SpeciesHandler getSpecies(LivingEntity entity) {
+    public static Species getSpecies(LivingEntity entity) {
         return switch (entity) {
             case Creeper c -> CREEPERS;
             case AbstractSkeleton s -> SKELETAL;
@@ -30,7 +30,7 @@ public enum SpeciesHandler {
 
 
     public boolean isHostileTowards(LivingEntity target) {
-        SpeciesHandler targetSpecies = getSpecies(target);
+        Species targetSpecies = getSpecies(target);
 
         // Filter for undefined species
         if (this == UNKNOWN) return false;
